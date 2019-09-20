@@ -3,27 +3,40 @@ package com.udec.Clases;
 import com.ude.Logica.Logica;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author JuanPC
+ * Clase Corredor.
+ * @since CarreraRelevo 1.0
+ * @version 1.0
+ * @author Juan Ricardo Rodriguez Campos
  */
 public class Corredor extends Thread{
     
+    /**
+     * Atributos
+     */
     private int posicion;
     private Equipo equipo;
-
-
+    
+    /**
+     * Constructor de la clase
+     * @param posicion
+     * @param equipo 
+     */
     public Corredor(int posicion,Equipo equipo){
         this.posicion=posicion;
         this.equipo=equipo;
     }
     
+    /**
+     * Metodo que imprime el primer recorrido del participante 
+     */
     public void tramo1(){
         int cont=0;
-        for(int i=0;i<34;i++){
+        while(cont<34){
             cont=cont+random();
                equipo.imprimir(cont,1);
                try {
@@ -34,9 +47,12 @@ public class Corredor extends Thread{
         }
     }
     
+    /**
+     *  Metodo que imprime el segundo recorrido del participante
+     */
     public void tramo2(){
-        int cont=10;
-        for(int i=10;i<67;i++){
+        int cont=33;
+        while(cont<67){
             cont=cont+random();
                equipo.imprimir(cont,2);
                try {
@@ -44,12 +60,15 @@ public class Corredor extends Thread{
                } catch (InterruptedException ex) {
                    Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
                }
-           }
+        }
     }
     
+    /**
+     *  Metodo que imprime el tercer recorrido del participante
+     */
     public void tramo3(){
-        int cont=20;
-        for(int i=20;i<100;i++){
+        int cont=66;
+        while(cont<100){
             cont=cont+random();
                equipo.imprimir(cont,3);
                try {
@@ -57,9 +76,16 @@ public class Corredor extends Thread{
                } catch (InterruptedException ex) {
                    Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
                }
-            }
+        }
+        //Logica logica = new Logica();
+        //List<String> lista = new Vector<>();
+        //lista=logica.getLlegada();
+       // lista.add(equipo.getNombre());
     }
     
+    /**
+     * Metodo run que ejecuta los hilos y deja en espera a los siguientes 
+     */
     @Override
     public void run(){
         if(posicion==1){
@@ -97,32 +123,10 @@ public class Corredor extends Thread{
         }   
     }
     
-    public void imprimir(int posicion,int tramo){
-        char[] pista = equipo.getPista().toCharArray();
-        for(int i=0;i<pista.length;i++){
-            if(tramo==1){
-                if(posicion==i){
-                    pista[i]='x';
-                    System.out.println(String.valueOf(pista));
-                }
-            }
-            if(tramo==2){
-                if(posicion==i){
-                    System.out.println("");
-                    pista[0]='_';pista[33]='x';
-                    System.out.println(String.valueOf(pista));
-                }
-            }
-            if(tramo==3){
-                if(posicion==i){
-                    System.out.println("");
-                    pista[0]='_';pista[33]='x';pista[66]='o';
-                    System.out.println(String.valueOf(pista));
-                }
-            }
-        }
-    }
-    
+    /**
+     * Metodo que genera el numero random entre 1 y 3
+     * @return 
+     */ 
     public static int random(){
         int numero = (int) (Math.random() * 3) + 1;
         //System.out.println(numero);        
